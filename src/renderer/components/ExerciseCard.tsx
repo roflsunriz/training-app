@@ -1,5 +1,6 @@
 import type { Exercise } from '../../types/domain'
 import { formatPrescription } from '../utils/format'
+import { ExerciseIllustration } from './ExerciseIllustration'
 
 interface ExerciseCardProps {
   readonly exercise: Exercise
@@ -32,6 +33,12 @@ export function ExerciseCard({
             aria-label={`${exercise.name} を完了にする`}
           />
         </label>
+        <div className="shrink-0 pt-0.5">
+          <ExerciseIllustration
+            exerciseId={exercise.id}
+            className={`h-10 w-16 ${checked ? 'text-emerald-400' : 'text-stone-300'}`}
+          />
+        </div>
         <div className="flex-1">
           <div className="flex items-center justify-between">
             <h4

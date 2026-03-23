@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { Exercise } from '../../types/domain'
 import { formatPrescription } from '../utils/format'
+import { ExerciseIllustration } from './ExerciseIllustration'
 
 interface ExerciseDetailModalProps {
   readonly exercise: Exercise | null
@@ -28,7 +29,7 @@ export function ExerciseDetailModal({
   return (
     <dialog
       ref={dialogRef}
-      className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-xl border border-stone-200 bg-white p-0 shadow-xl backdrop:bg-black/40"
+      className="fixed inset-0 m-auto max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-xl border border-stone-200 bg-white p-0 shadow-xl backdrop:bg-black/40"
       onClose={onClose}
     >
       <div className="p-6">
@@ -44,7 +45,14 @@ export function ExerciseDetailModal({
           </button>
         </div>
 
-        <p className="mt-2 text-sm text-stone-600">{exercise.description}</p>
+        <div className="mt-3 flex justify-center rounded-lg bg-stone-50 py-3">
+          <ExerciseIllustration
+            exerciseId={exercise.id}
+            className="h-20 w-32 text-stone-400"
+          />
+        </div>
+
+        <p className="mt-3 text-sm text-stone-600">{exercise.description}</p>
 
         <div className="mt-4 rounded-lg bg-stone-50 p-3">
           <span className="text-sm font-medium text-stone-700">目標: </span>

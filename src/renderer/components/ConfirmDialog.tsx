@@ -43,7 +43,7 @@ export function ConfirmDialog({
   return (
     <dialog
       ref={dialogRef}
-      className="rounded-xl border border-stone-200 bg-white p-0 shadow-xl backdrop:bg-black/40"
+      className="fixed inset-0 m-auto max-w-md rounded-xl border border-stone-200 bg-white p-0 shadow-xl backdrop:bg-black/40"
       onClose={onCancel}
     >
       <div className="p-6">
