@@ -1,3 +1,9 @@
+const JST_OFFSET_MS = 9 * 60 * 60 * 1000
+
+export function toJstDateString(date: Date = new Date()): string {
+  return new Date(date.getTime() + JST_OFFSET_MS).toISOString().slice(0, 10)
+}
+
 export function toISOString(): string {
   return new Date().toISOString()
 }
@@ -20,7 +26,7 @@ export function formatDateShort(isoString: string): string {
 }
 
 export function isSameDay(iso1: string, iso2: string): boolean {
-  return iso1.slice(0, 10) === iso2.slice(0, 10)
+  return toJstDateString(new Date(iso1)) === toJstDateString(new Date(iso2))
 }
 
 export function generateId(): string {

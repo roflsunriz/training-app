@@ -1,4 +1,5 @@
 import type { SessionLog, SessionType, StageId, TrainingSession } from '../../../types/domain'
+import { toJstDateString } from '../../utils/date'
 import { getSessionForStage } from './trainingData'
 
 export function getNextSessionType(logs: readonly SessionLog[]): SessionType {
@@ -43,8 +44,8 @@ export function isCompletedToday(logs: readonly SessionLog[]): boolean {
   if (logs.length === 0) return false
   const lastLog = logs[logs.length - 1]
   if (!lastLog) return false
-  const today = new Date().toISOString().slice(0, 10)
-  return lastLog.completedAt.slice(0, 10) === today
+  const today = toJstDateString()
+  return toJstDateString(new Date(lastLog.completedAt)) === today
 }
 
 export function getRecentLogs(

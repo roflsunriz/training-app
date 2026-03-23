@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import type { SessionLog } from '../../../types/domain'
 import {
   getNextSessionType,
@@ -91,38 +91,64 @@ describe('getLastCompletedDate', () => {
 })
 
 describe('isCompletedToday', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('returns false for empty logs', () => {
     expect(isCompletedToday([])).toBe(false)
   })
 
-  it('returns true when last log is today', () => {
-    const today = new Date().toISOString()
-    const logs = [makeLog({ completedAt: today })]
+  it('returns true when last log is today in JST', () => {
+    vi.setSystemTime(new Date('2026-03-23T06:00:00.000Z'))
+    const logs = [makeLog({ completedAt: '2026-03-23T03:00:00.000Z' })]
     expect(isCompletedToday(logs)).toBe(true)
   })
 
   it('returns false when last log is not today', () => {
+    vi.setSystemTime(new Date('2026-03-23T06:00:00.000Z'))
     const logs = [makeLog({ completedAt: '2020-01-01T00:00:00.000Z' })]
     expect(isCompletedToday(logs)).toBe(false)
+  })
+
+  it('treats JST midnight as the day boundary (log from previous JST day)', () => {
+    // Now: 2026-03-24 00:30 JST (= 2026-03-23 15:30 UTC)
+    vi.setSystemTime(new Date('2026-03-23T15:30:00.000Z'))
+    // Log: 2026-03-23 23:30 JST (= 2026-03-23 14:30 UTC) → JST March 23
+    const logs = [makeLog({ completedAt: '2026-03-23T14:30:00.000Z' })]
+    expect(isCompletedToday(logs)).toBe(false)
+  })
+
+  it('treats same JST day correctly across UTC day boundary', () => {
+    // Now: 2026-03-23 23:30 JST (= 2026-03-23 14:30 UTC)
+    vi.setSystemTime(new Date('2026-03-23T14:30:00.000Z'))
+    // Log: 2026-03-23 00:30 JST (= 2026-03-22 15:30 UTC) → same JST day
+    const logs = [makeLog({ completedAt: '2026-03-22T15:30:00.000Z' })]
+    expect(isCompletedToday(logs)).toBe(true)
   })
 })
 
 describe('getRecentLogs', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-03-23T06:00:00.000Z'))
+  })
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('returns empty for empty logs', () => {
     expect(getRecentLogs([], 14)).toEqual([])
   })
 
   it('filters logs within specified days', () => {
-    const now = new Date()
-    const recent = new Date(now)
-    recent.setDate(recent.getDate() - 3)
-    const old = new Date(now)
-    old.setDate(old.getDate() - 30)
-
     const logs = [
-      makeLog({ id: '1', completedAt: old.toISOString() }),
-      makeLog({ id: '2', completedAt: recent.toISOString() }),
-      makeLog({ id: '3', completedAt: now.toISOString() }),
+      makeLog({ id: '1', completedAt: '2026-02-20T06:00:00.000Z' }),
+      makeLog({ id: '2', completedAt: '2026-03-20T06:00:00.000Z' }),
+      makeLog({ id: '3', completedAt: '2026-03-23T06:00:00.000Z' }),
     ]
     const result = getRecentLogs(logs, 14)
     expect(result).toHaveLength(2)

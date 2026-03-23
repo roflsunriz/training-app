@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAppStore } from '../stores/appStore'
 import { ConfirmDialog } from '../components/ConfirmDialog'
+import { toJstDateString } from '../utils/date'
 
 export function SettingsPage(): React.JSX.Element {
   const displayName = useAppStore((s) => s.displayName)
@@ -29,7 +30,7 @@ export function SettingsPage(): React.JSX.Element {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `ab-training-export-${new Date().toISOString().slice(0, 10)}.json`
+    a.download = `ab-training-export-${toJstDateString()}.json`
     a.click()
     URL.revokeObjectURL(url)
   }

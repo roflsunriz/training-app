@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.2] - 2026-03-23
+
+### Fixed
+
+- 「今日のトレーニング完了」判定がUTC基準だったためJST午前9時で日が切り替わっていた問題をJST（Asia/Tokyo）基準に修正
+- `isSameDay` の日付比較をJST基準に統一
+- データエクスポートのファイル名日付をJST基準に統一
+
 ## [0.1.1] - 2026-03-23
 
 ### Added
