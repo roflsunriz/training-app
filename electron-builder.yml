@@ -1,0 +1,21 @@
+appId: com.ab-training-app
+productName: 腹筋トレーニング
+directories:
+  buildResources: build
+  output: dist
+files:
+  - out/**/*
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: ${name}-${version}-setup.${ext}
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+publish:
+  provider: github
+  owner: roflsunriz
+  repo: training-app
