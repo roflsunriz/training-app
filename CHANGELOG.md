@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 2026-03-23
+
+### Added
+
+- Custom app icon featuring ab crunch silhouette with orange-red gradient
+
+### Fixed
+
+- Release workflow now uploads `latest.yml` for electron-updater version check
+- Release workflow now uploads `.exe.blockmap` for differential updates
+- Release notes now extracted from CHANGELOG.md instead of auto-generated
+
 ## [0.1.0] - 2026-03-23
 
 ### Added
