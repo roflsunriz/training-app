@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.4] - 2026-03-29
+
+### Changed
+
+- 設定ページのアップデート進捗表示をテキストからダウンロードプログレスバーに変更
+- アップデートのダウンロード完了後に自動で再起動して更新を適用するように変更
+
 ## [0.1.3] - 2026-03-24
 
 ### Fixed

@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import type { ProgressState } from '../types/domain'
-import type { AppApi } from '../types/api'
+import type { AppApi, UpdateStatus } from '../types/api'
 
 const api: AppApi = {
   getAppVersion: () => ipcRenderer.invoke('get-app-version') as Promise<string>,
@@ -14,9 +14,9 @@ const api: AppApi = {
   checkForUpdates: () =>
     ipcRenderer.invoke('check-for-updates') as Promise<void>,
 
-  onUpdateStatus: (callback: (message: string) => void) => {
-    const handler = (_event: Electron.IpcRendererEvent, message: string): void => {
-      callback(message)
+  onUpdateStatus: (callback: (status: UpdateStatus) => void) => {
+    const handler = (_event: Electron.IpcRendererEvent, status: UpdateStatus): void => {
+      callback(status)
     }
     ipcRenderer.on('update-status', handler)
     return () => {

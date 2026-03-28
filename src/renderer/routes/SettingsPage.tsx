@@ -2,6 +2,41 @@ import { useState, useEffect } from 'react'
 import { useAppStore } from '../stores/appStore'
 import { ConfirmDialog } from '../components/ConfirmDialog'
 import { toJstDateString } from '../utils/date'
+import type { UpdateStatus } from '../../types/api'
+
+function renderUpdateStatus(status: UpdateStatus): React.JSX.Element {
+  switch (status.type) {
+    case 'checking':
+      return <p className="text-sm text-sky-600">更新を確認中...</p>
+    case 'available':
+      return <p className="text-sm text-sky-600">新しいバージョンがあります。ダウンロードを開始します...</p>
+    case 'not-available':
+      return <p className="text-sm text-stone-500">最新バージョンです</p>
+    case 'downloading':
+      return (
+        <div>
+          <div className="flex justify-between text-sm text-sky-600">
+            <span>ダウンロード中...</span>
+            <span>{status.percent}%</span>
+          </div>
+          <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-stone-200">
+            <div
+              className="h-full rounded-full bg-sky-500 transition-all duration-300"
+              style={{ width: `${String(status.percent)}%` }}
+            />
+          </div>
+        </div>
+      )
+    case 'downloaded':
+      return <p className="text-sm text-emerald-600">ダウンロード完了。まもなく再起動します...</p>
+    case 'error':
+      return <p className="text-sm text-red-500">更新の確認に失敗しました</p>
+    default: {
+      const _exhaustive: never = status
+      return _exhaustive
+    }
+  }
+}
 
 export function SettingsPage(): React.JSX.Element {
   const displayName = useAppStore((s) => s.displayName)
@@ -14,7 +49,11 @@ export function SettingsPage(): React.JSX.Element {
   const [nameInput, setNameInput] = useState(displayName)
   const [appVersion, setAppVersion] = useState('')
   const [showResetDialog, setShowResetDialog] = useState(false)
-  const [updateMessage, setUpdateMessage] = useState('')
+  const [updateStatus, setUpdateStatus] = useState<UpdateStatus | null>(null)
+
+  const isUpdateInProgress = updateStatus !== null
+    && updateStatus.type !== 'not-available'
+    && updateStatus.type !== 'error'
 
   useEffect(() => {
     void window.api.getAppVersion().then(setAppVersion)
@@ -42,15 +81,15 @@ export function SettingsPage(): React.JSX.Element {
   }
 
   const handleCheckUpdate = (): void => {
-    setUpdateMessage('更新を確認中...')
+    setUpdateStatus({ type: 'checking' })
     void window.api.checkForUpdates().catch(() => {
-      setUpdateMessage('更新の確認に失敗しました')
+      setUpdateStatus({ type: 'error' })
     })
   }
 
   useEffect(() => {
-    const unsubscribe = window.api.onUpdateStatus((message) => {
-      setUpdateMessage(message)
+    const unsubscribe = window.api.onUpdateStatus((status) => {
+      setUpdateStatus(status)
     })
     return unsubscribe
   }, [])
@@ -122,13 +161,16 @@ export function SettingsPage(): React.JSX.Element {
         </div>
         <button
           onClick={handleCheckUpdate}
-          className="mt-3 w-full rounded-lg border border-stone-300 px-4 py-2 text-sm text-stone-600 hover:bg-stone-50"
+          disabled={isUpdateInProgress}
+          className="mt-3 w-full rounded-lg border border-stone-300 px-4 py-2 text-sm text-stone-600 hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
           type="button"
         >
           アップデートを確認
         </button>
-        {updateMessage ? (
-          <p className="mt-2 text-sm text-sky-600">{updateMessage}</p>
+        {updateStatus ? (
+          <div className="mt-3">
+            {renderUpdateStatus(updateStatus)}
+          </div>
         ) : null}
       </div>
 
