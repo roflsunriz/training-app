@@ -32,11 +32,14 @@ const PROGRESS_KEYS: readonly (keyof ProgressState)[] = [
 ] as const
 
 function extractProgress(state: AppState): ProgressState {
-  const result: Record<string, unknown> = {}
-  for (const key of PROGRESS_KEYS) {
-    result[key] = state[key]
+  return {
+    currentStage: state.currentStage,
+    onboardingCompleted: state.onboardingCompleted,
+    logs: state.logs,
+    preferredSessionRotation: state.preferredSessionRotation,
+    showSafetyReminder: state.showSafetyReminder,
+    displayName: state.displayName,
   }
-  return result as ProgressState
 }
 
 async function persistState(state: AppState): Promise<void> {

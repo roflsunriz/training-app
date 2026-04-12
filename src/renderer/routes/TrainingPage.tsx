@@ -37,6 +37,7 @@ export function TrainingPage(): React.JSX.Element {
 
   const doComplete = useCallback(async () => {
     if (!session) return
+    const trimmedNotes = notes.trim()
     const log: SessionLog = {
       id: generateId(),
       completedAt: toISOString(),
@@ -44,7 +45,7 @@ export function TrainingPage(): React.JSX.Element {
       sessionType: session.sessionType,
       completedExerciseIds: [...checkedIds],
       painReported,
-      notes: notes.trim() || undefined,
+      ...(trimmedNotes ? { notes: trimmedNotes } : {}),
     }
     await completeSession(log)
     void navigate('/')

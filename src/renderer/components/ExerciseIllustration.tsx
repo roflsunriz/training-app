@@ -90,7 +90,7 @@ function SupineMarching({ className }: IllustrationProps): React.JSX.Element {
 function SeatedBrace({ className }: IllustrationProps): React.JSX.Element {
   return (
     <svg viewBox="0 0 120 60" className={className} aria-hidden="true">
-      <rect x="55" y="20" width="30" height="35" rx="3" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="1" opacity2="0.3" />
+      <rect x="55" y="20" width="30" height="35" rx="3" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="1" />
       <ellipse cx="60" cy="14" rx="5" ry="5" fill="currentColor" opacity="0.7" />
       <line x1="60" y1="19" x2="60" y2="38" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       <line x1="60" y1="38" x2="55" y2="52" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
@@ -104,7 +104,7 @@ function WallPlank({ className }: IllustrationProps): React.JSX.Element {
   return (
     <svg viewBox="0 0 120 60" className={className} aria-hidden="true">
       <line x1="20" y1="55" x2="100" y2="55" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
-      <rect x="88" y="5" width="6" height="50" rx="1" fill="currentColor" opacity="0.15" stroke="currentColor" strokeWidth="1" opacity2="0.3" />
+      <rect x="88" y="5" width="6" height="50" rx="1" fill="currentColor" opacity="0.15" stroke="currentColor" strokeWidth="1" />
       <ellipse cx="60" cy="10" rx="5" ry="5" fill="currentColor" opacity="0.7" />
       <line x1="62" y1="15" x2="70" y2="38" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       <line x1="70" y1="38" x2="68" y2="54" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
@@ -160,7 +160,7 @@ function InclinePlank({ className }: IllustrationProps): React.JSX.Element {
   return (
     <svg viewBox="0 0 120 60" className={className} aria-hidden="true">
       <line x1="20" y1="55" x2="100" y2="55" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
-      <rect x="82" y="30" width="14" height="25" rx="2" fill="currentColor" opacity="0.12" stroke="currentColor" strokeWidth="1" opacity2="0.3" />
+      <rect x="82" y="30" width="14" height="25" rx="2" fill="currentColor" opacity="0.12" stroke="currentColor" strokeWidth="1" />
       <ellipse cx="50" cy="18" rx="5" ry="5" fill="currentColor" opacity="0.7" />
       <line x1="54" y1="22" x2="72" y2="38" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       <line x1="72" y1="38" x2="58" y2="54" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
