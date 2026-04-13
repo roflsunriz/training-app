@@ -22,15 +22,6 @@ const DEFAULT_STATE: ProgressState = {
   displayName: '',
 }
 
-const PROGRESS_KEYS: readonly (keyof ProgressState)[] = [
-  'currentStage',
-  'onboardingCompleted',
-  'logs',
-  'preferredSessionRotation',
-  'showSafetyReminder',
-  'displayName',
-] as const
-
 function extractProgress(state: AppState): ProgressState {
   return {
     currentStage: state.currentStage,
