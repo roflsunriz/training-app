@@ -10,3 +10,7 @@ bun.lockb
 *.tsbuildinfo
 
 .vite/
+
+COMMON-AGENTS.md
+
+COMMON-AGENTS.md
