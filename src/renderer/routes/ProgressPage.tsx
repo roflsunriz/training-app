@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { useAppStore } from '../stores/appStore'
 import { StageBadge } from '../components/StageBadge'
 import { ProgressSummary } from '../components/ProgressSummary'

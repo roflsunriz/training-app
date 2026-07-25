@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { useAppStore } from '../stores/appStore'
 import { ExerciseCard } from '../components/ExerciseCard'
 import { ExerciseDetailModal } from '../components/ExerciseDetailModal'

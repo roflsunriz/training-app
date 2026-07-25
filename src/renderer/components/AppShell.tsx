@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router'
 
 const navItems = [
   { to: '/', label: 'ホーム' },

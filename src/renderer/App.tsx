@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router'
 import { useAppStore } from './stores/appStore'
 import { AppShell } from './components/AppShell'
 import { HomePage } from './routes/HomePage'

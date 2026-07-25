@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { useAppStore } from '../stores/appStore'
 
 export function OnboardingPage(): React.JSX.Element {
