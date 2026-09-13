@@ -19,3 +19,4 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 - CIとReleaseで指定する同じBunを使い、依存更新時は `bun.lock` も再生成して `bun install --frozen-lockfile` と `bun audit` を確認する。npm向けDependabot PR #1は `package.json` だけを変更し、ロック不整合でCIが停止した。
 - ルート `tsconfig.json` は参照先だけを持つため、`tsc --noEmit` 単体ではソースを検査しない。`bun run type-check` のbuildモードでnode/web両プロジェクトを検査する。
 - Vitest 5はNode.js 22.12以降を必要とする。Vite 8には対応する `@vitejs/plugin-react` 6を使う。検証範囲は `verification.md` を参照する。
+- 配布確認では `bun run build` だけで済ませず、electron-builderで作った `app.asar` とインストーラーも確認する。Bunでは依存関係ツリーをファイル走査で収集するため、梱包後の依存読み込みとmain/preload/rendererの接続を検証し、`latest.yml` の版・サイズ・SHA-512を実ファイルと照合する。アプリ実行は隔離したuserDataと `DISABLE_UPDATER=true` を使う。

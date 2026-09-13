@@ -1,5 +1,12 @@
 # 検証手順
 
+## v0.1.5の公開前検証（2026-09-13）
+
+- lint、node/webの型検査、32テスト、main・preload・rendererビルド、Bunの既知脆弱性監査0件を再確認。
+- `bun x --no-install electron-builder --win --publish never` でWindows x64インストーラーとblockmapを生成。`latest.yml` のバージョン、サイズ、SHA-512が実際のインストーラーと一致することを確認。
+- 梱包した `app.asar` のmain・preload・rendererをElectron 43.2.0で非表示起動し、専用の一時userDataで初回案内、設定入力・保存・切り替え、未完了セッションのキャンセル、セッション完了、A/B切り替え、空メモ省略、再読み込み後の保存保持を確認。900×670と480×600で横にはみ出さず、コンソールエラーなし。
+- 実ユーザー環境へのインストールと、配布済み旧版からの自動更新適用は行っていない。公開後はReleaseにインストーラー・blockmap・latest.ymlが揃い、メタデータが配布ファイルを指すことを確認する。
+
 ## 依存更新
 
 `how-to-update.md` の固定ロックによるインストール、監査、lint、型チェック、テスト、ビルドを実行します。CIとReleaseも同じチェックを実行します。
