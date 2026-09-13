@@ -23,9 +23,11 @@
 
 ## セットアップ
 
+開発にはNode.js 22.12以降と、CI定義に記載したBunを使用します。依存更新は[更新手順](how-to-update.md)、検証範囲は[検証手順](verification.md)を参照してください。
+
 ```bash
 # 依存インストール
-bun install
+bun install --frozen-lockfile
 
 # 開発起動
 bun run dev
@@ -72,5 +74,7 @@ GitHub Releases を利用した自動更新に対応しています。
 - 腰に不安がある方は医師にご相談ください
 
 ## ライセンス
+
+不具合や操作の相談は[サポート](SUPPORT.md)、開発参加は[CONTRIBUTING.md](CONTRIBUTING.md)、脆弱性の扱いは[SECURITY.md](SECURITY.md)を参照してください。
 
 [MIT](LICENSE)

@@ -16,3 +16,6 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 ## パッケージ管理
 
 - パッケージマネージャは Bun を使用する。
+- CIとReleaseで指定する同じBunを使い、依存更新時は `bun.lock` も再生成して `bun install --frozen-lockfile` と `bun audit` を確認する。npm向けDependabot PR #1は `package.json` だけを変更し、ロック不整合でCIが停止した。
+- ルート `tsconfig.json` は参照先だけを持つため、`tsc --noEmit` 単体ではソースを検査しない。`bun run type-check` のbuildモードでnode/web両プロジェクトを検査する。
+- Vitest 5はNode.js 22.12以降を必要とする。Vite 8には対応する `@vitejs/plugin-react` 6を使う。検証範囲は `verification.md` を参照する。

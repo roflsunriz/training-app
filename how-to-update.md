@@ -1,4 +1,31 @@
-1. 前回のリリースバージョンからのコミット履歴を取得し、変更点を抽出する
-2. 変更点をもとに、CHANGELOG.md を更新する
-3. メジャー->破壊的変更、大規模変更、マイナー->バグ修正、新機能追加、パッチ->バグ修正としてpackage.jsonのversionを更新する
-4. git tag v{version} & git push origin v{version}でGitHub Actionsが自動リリース作成
+# 更新手順
+
+## 開発・依存更新
+
+Node.jsは `package.json` のengines、BunはCI・Release定義のバージョンを使用します。ユーザーデータの `progress.json` をバックアップし、作業ツリーの既存変更を確認してから更新します。
+
+```powershell
+git pull --ff-only
+bun install --frozen-lockfile
+bun audit
+bun run lint
+bun run type-check
+bun run test
+bun run build
+```
+
+Dependabotを含め依存を変更するときは、先に `bun install` で `bun.lock` を再生成し、package.jsonとロックの両方をレビューします。CIの `--frozen-lockfile` を外して不整合を回避しないでください。更新対象のリリースノートとNode/Viteの互換要件も確認します。
+
+Vitest 5への移行にはNode.js 22.12以降が必要です。Vite 8では対応するReactプラグイン6を使用します。監査上のoverridesを変更する場合は、間接依存を含む監査0件と全検証を確認します。
+
+## リリース
+
+1. 前回リリースからの実際の差分を確認し、日本語の `CHANGELOG.md` のUnreleasedを整理します。
+2. 互換性のない変更はmajor、互換性のある機能追加はminor、互換性のある不具合修正はpatchを上げ、package.jsonとロックを更新します。
+3. 上記の監査・検証を実行し、Windowsインストーラーが必要な場合は `bun x electron-builder --win --publish never` で生成します。
+4. 変更をmainへ反映してCI成功を確認します。
+5. 公開を行うときだけ、実際のversionに一致する `vX.Y.Z` タグを作成してpushします。ReleaseワークフローがCHANGELOGから本文を抽出し、インストーラー・更新メタデータを公開します。
+
+## 復旧
+
+依存更新に問題がある場合は、package.jsonとbun.lockを同じコミット単位でrevertし、依存を再導入して上記検証を実行します。ユーザーデータは削除しません。公開済みタグの付け替えは避け、配布済みの不具合は新しいパッチバージョンで修正します。

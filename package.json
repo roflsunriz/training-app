@@ -6,7 +6,7 @@
   "author": "",
   "main": "./out/main/index.js",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "electron-vite dev",
@@ -14,7 +14,7 @@
     "start": "electron-vite preview",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix --max-warnings 0",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc --build --pretty false",
     "test": "vitest run",
     "test:watch": "vitest",
     "rebuild": "electron-builder install-app-deps"
@@ -33,7 +33,7 @@
     "electron-builder": "^26.15.3",
     "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "^6.0.3",
     "typescript": "^5.9.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -52,15 +52,20 @@
   },
   "overrides": {
     "@babel/core": "8.0.1",
-    "@xmldom/xmldom": "0.9.10",
+    "@humanfs/node": "0.16.8",
+    "@xmldom/xmldom": "0.9.12",
     "app-builder-lib": "26.15.3",
-    "brace-expansion": "5.0.8",
+    "baseline-browser-mapping": "2.11.0",
+    "brace-expansion": "5.0.9",
+    "browserslist": "4.28.7",
     "builder-util-runtime": "9.7.0",
     "electron": "43.2.0",
+    "fast-uri": "3.1.6",
     "form-data": "4.0.6",
     "ip-address": "10.3.0",
     "js-yaml": "5.2.2",
     "lodash": "4.18.1",
+    "nanoid": "3.3.18",
     "picomatch": "4.0.5",
     "postcss": "8.5.23",
     "react-router": "8.3.0",

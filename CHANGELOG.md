@@ -1,17 +1,19 @@
-# Changelog
+# 変更履歴
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/),
-and this project adheres to [Semantic Versioning](https://semver.org/).
+主な変更を[Keep a Changelog](https://keepachangelog.com/)形式で記録します。バージョンは[Semantic Versioning](https://semver.org/)に従います。
 
 ## [Unreleased]
 
 ### Security
 
+- 依存監査で検出された既知脆弱性を解消するため、XML解析・URI解析・ID生成・ブラウザー情報などの間接依存を修正版へ更新し、CIとReleaseにも `bun audit` を追加した。
+
 - push前監査で検出された既知の依存脆弱性を解消するため、安全版へ依存関係とロックファイルを更新した。
 
 ### Changed
+
+- Vitest 5へ移行し、Bunのロックファイル、Node.jsの最低要件、CIのBunバージョンを揃えた。Vite 8に対応するReactプラグインと現行GitHub Actionsへ更新し、非推奨設定を解消した。
+- 型チェックが実際にnode/web両プロジェクトを検査するようbuildモードへ修正し、更新・検証・参加・サポート手順を整備した。
 
 - 作業開始時の共通指針見落としを防ぐため、調査やコマンド実行より前に `COMMON-AGENTS.md` を先頭から末尾まで読み、EOFを確認する必須ゲートを追加した。
 
@@ -40,23 +42,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- Custom app icon featuring ab crunch silhouette with orange-red gradient
+- オレンジから赤のグラデーションと腹筋運動のシルエットを使ったアプリアイコンを追加。
 
 ### Fixed
 
-- Release workflow now uploads `latest.yml` for electron-updater version check
-- Release workflow now uploads `.exe.blockmap` for differential updates
-- Release notes now extracted from CHANGELOG.md instead of auto-generated
+- 自動更新のバージョン確認に必要な `latest.yml` をReleaseへ同梱。
+- 差分更新に必要な `.exe.blockmap` をReleaseへ同梱。
+- リリースノートをCHANGELOG.mdの該当バージョンから抽出するよう変更。
 
 ## [0.1.0] - 2026-03-23
 
 ### Added
 
-- Initial project setup with electron-vite, React, TypeScript, Tailwind CSS
-- Stage 1-3 training programs with A/B session rotation
-- Session completion logging with local JSON persistence
-- Progression condition evaluation for stage advancement
-- Onboarding flow for first-time users
-- Progress tracking with 14-day history view
-- Settings page with data export and reset
-- Auto-update check via electron-updater
+- electron-vite、React、TypeScript、Tailwind CSSを使う初期構成を追加。
+- A/Bセッションを交互に行う3段階のトレーニングプログラムを追加。
+- セッション完了記録のローカルJSON保存を追加。
+- 次の段階へ進む条件の判定を追加。
+- 初回利用時の案内を追加。
+- 過去14日間の履歴による進捗確認を追加。
+- データのエクスポートとリセットを行う設定ページを追加。
+- electron-updaterによる自動更新確認を追加。
