@@ -49,7 +49,7 @@ bun run build
 
 ```bash
 # Windows インストーラー作成
-bun run build && npx electron-builder --win
+bun run build && bun x --no-install electron-builder --win --publish never
 ```
 
 生成物は `dist/` に出力されます。

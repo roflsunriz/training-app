@@ -6,6 +6,7 @@
 - `bun x --no-install electron-builder --win --publish never` でWindows x64インストーラーとblockmapを生成。`latest.yml` のバージョン、サイズ、SHA-512が実際のインストーラーと一致することを確認。
 - 梱包した `app.asar` のmain・preload・rendererをElectron 43.2.0で非表示起動し、専用の一時userDataで初回案内、設定入力・保存・切り替え、未完了セッションのキャンセル、セッション完了、A/B切り替え、空メモ省略、再読み込み後の保存保持を確認。900×670と480×600で横にはみ出さず、コンソールエラーなし。
 - 実ユーザー環境へのインストールと、配布済み旧版からの自動更新適用は行っていない。公開後はReleaseにインストーラー・blockmap・latest.ymlが揃い、メタデータが配布ファイルを指すことを確認する。
+- 初回のタグ実行はnpxによるEOVERRIDEで公開前に停止した。ローカルで成功したBunの起動方法へmain側のワークフローを統一し、v0.1.5タグを移動せず `release_tag` の手動実行で復旧する。
 
 ## 依存更新
 
