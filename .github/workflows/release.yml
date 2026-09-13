@@ -81,7 +81,7 @@ jobs:
 
       - name: Publish to GitHub Releases (with changelog)
         if: steps.changelog.outputs.found == 'true'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           body: ${{ steps.changelog.outputs.body }}
@@ -94,7 +94,7 @@ jobs:
 
       - name: Publish to GitHub Releases (auto notes fallback)
         if: steps.changelog.outputs.found == 'false'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           generate_release_notes: true
