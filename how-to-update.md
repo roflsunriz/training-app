@@ -31,3 +31,9 @@ Vitest 5への移行にはNode.js 22.12以降が必要です。Vite 8では対�
 タグのソースに問題がなく、公開ワークフローだけが失敗した場合は、タグを削除・移動せずmainでワークフローを修正します。mainのCI成功後、`gh workflow run release.yml --repo roflsunriz/training-app --ref main -f release_tag=vX.Y.Z` の `vX.Y.Z` を既存タグへ置き換えて再実行します。手動実行も指定タグのソースを取得し、package.jsonのversionと照合してから同じタグへ公開します。
 
 依存更新に問題がある場合は、package.jsonとbun.lockを同じコミット単位でrevertし、依存を再導入して上記検証を実行します。ユーザーデータは削除しません。公開済みタグの付け替えは避け、配布済みの不具合は新しいパッチバージョンで修正します。
+
+## Dependabot PR の更新
+
+前提は `.github/dependabot.yml` と PR 用 CI（CI）です。更新 PR の head SHA と `gh pr checks <PR番号>` の結果を確認してください。patch／minor は全チェック成功後に自動取り込みされます。初回 CI 失敗は failed jobs のみを 1 回再実行し、再失敗時は `bun.lock` の再生成を試み、修復後の CI を再実行します。変更がない場合や再度失敗した場合は PR を残します。
+
+設定を変えたときは `actionlint .github/workflows/dependabot-automation.yml` と実際の PR の Actions 結果を確認します。問題があれば呼び出し先の共通 workflow SHA を直前の検証済み値へ戻すコミットを push します。取り込まれた依存更新に問題があれば通常の revert コミットで復旧します。

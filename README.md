@@ -78,3 +78,7 @@ GitHub Releases を利用した自動更新に対応しています。
 不具合や操作の相談は[サポート](SUPPORT.md)、開発参加は[CONTRIBUTING.md](CONTRIBUTING.md)、脆弱性の扱いは[SECURITY.md](SECURITY.md)を参照してください。
 
 [MIT](LICENSE)
+
+## 依存更新の自動処理
+
+Dependabot は対象の依存関係を毎週確認します。patch／minor 更新は PR のチェック（CI）が成功した後に自動で squash merge されます。CI の失敗ジョブは 1 回だけ再実行します。再失敗時は読み取り権限のジョブで `bun.lock` を再生成し、限定した修正コミットで CI を再実行します。修復できない PR は残します。major 更新は手動で確認します。
