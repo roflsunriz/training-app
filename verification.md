@@ -30,3 +30,10 @@ Vitest 3から5への変更とbun.lockを同期し、既存3ファイル32テス
 実際の Dependabot PR がまだない場合、動作経路は未検証として扱う。実 PR 発生後に自動化ジョブ、CI の再試行、マージ結果を確認する。
 
 大量の Dependabot PR により CI 完了より分類が遅れる場合でも、分類後の `workflow_dispatch` が現在の PR 番号と head SHA を照合して再評価する。別の作成者、古い SHA、未完了の CI はマージしない。
+
+## Dependabot PR #2-#6 の処理（2026-09-23）
+
+- #2（Electron 44.4.3）と #6（@eslint/js 10.0.1）は CI 成功のためそのままマージ。#4・#5 はマージ済みであることを確認。
+- #2 マージ後に実効版が 43.2.0 のまま残ることを検出（`overrides` の固定版が優先されるため）。ピンを 44.4.3 へ揃えて `bun.lock` を再生成し、解決版が変わったことを確認。
+- #3（TypeScript 7.0.2）は CI の lint で `typescript-eslint does not support TS 7.0` 失敗。PR ブランチで再現を確認し、`typescript` を `^6.0.3` へ調整、`src/renderer/vite-env.d.ts`（`vite/client` 参照）を追加して main を取り込み、CI 成功後にマージ。
+- 最終状態で `bun install --frozen-lockfile`、lint、型チェック（`tsc --build`）、テスト 32 件、ビルド、`bun audit`（脆弱性 0 件）を確認。今回の範囲は依存更新のみで、インストーラー生成や実アプリ操作の確認は行わない。

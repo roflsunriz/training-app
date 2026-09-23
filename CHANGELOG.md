@@ -7,6 +7,8 @@
 ### Changed
 
 - 依存更新を安全に省力化するため、Dependabot の patch／minor PR を既存 CI の全チェック成功後に自動取り込みし、失敗ジョブを一度再実行し、必要なら `bun.lock` を限定して再生成する設定を追加した。
+- Dependabot PR #2・#4・#5・#6 を取り込み、Electron 44.4.3、react-dom系、eslint-plugin-react-refresh 0.5.7、@eslint/js 10.0.1 へ更新した。devDependenciesの引き上げが `overrides` の固定版に打ち消されないよう、Electron のピンも 44.4.3 へ揃えた。
+- TypeScript を 5.9.3 から 6.0.3 へ更新した。Dependabot 提案の 7.0.2 は typescript-eslint 8.x が未対応で lint が失敗するため見送り、対応版が出たら再提案時に移行する。TS6 の既定で検査対象になった CSS の副作用importを解決するため、`vite/client` 型参照を追加した。
 ### Fixed
 
 - CI と Dependabot の分類の実行順が前後しても更新を取りこぼさないよう、同じ PR 番号と head SHA を再照合する経路を追加した。
