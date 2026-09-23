@@ -28,7 +28,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "electron": "^43.2.0",
+    "electron": "^44.4.3",
     "electron-vite": "^5.0.0",
     "electron-builder": "^26.15.3",
     "@electron-toolkit/preload": "^3.0.2",
