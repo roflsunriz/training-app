@@ -37,3 +37,11 @@ Vitest 3から5への変更とbun.lockを同期し、既存3ファイル32テス
 - #2 マージ後に実効版が 43.2.0 のまま残ることを検出（`overrides` の固定版が優先されるため）。ピンを 44.4.3 へ揃えて `bun.lock` を再生成し、解決版が変わったことを確認。
 - #3（TypeScript 7.0.2）は CI の lint で `typescript-eslint does not support TS 7.0` 失敗。PR ブランチで再現を確認し、`typescript` を `^6.0.3` へ調整、`src/renderer/vite-env.d.ts`（`vite/client` 参照）を追加して main を取り込み、CI 成功後にマージ。
 - 最終状態で `bun install --frozen-lockfile`、lint、型チェック（`tsc --build`）、テスト 32 件、ビルド、`bun audit`（脆弱性 0 件）を確認。今回の範囲は依存更新のみで、インストーラー生成や実アプリ操作の確認は行わない。
+
+## Dependabot PR #7-#11 の処理（2026-09-30）
+
+- PR #7（Vite 8.3.1）、#8（React と @types/react 19.3.0）、#10（Zustand 5.0.15）、#11（Electron 44.4.5）は、CI の lint、`bun audit`、型チェック、32 テスト、build が成功した後に `main` へマージした。
+- 4件を統合した `main` の CI（workflow_dispatch、run 36589057285）も lint、`bun audit`、型チェック、32 テスト、build の全チェックが成功した。
+- 4件の最初のCI失敗は `fast-uri` 3.1.6 と `undici` 7.29.0／6.28.0 の既知脆弱性による `bun audit` の失敗。version-scoped override で `fast-uri` 3.1.7、`undici` 7.29.1／6.28.1 を指定し、Electron と Vite の override もDependabotの更新版へ揃えた。ローカル `bun audit` は脆弱性 0 件、frozen install は成功。
+- ローカルには Bun 1.4.0 のみがあり、lockfile の再生成とローカル検証はその版で実施した。CI はプロジェクト指定の Bun 1.4.2 で各PRを検証し、成功を確認した。
+- PR #9（TypeScript 7.0.2）は typescript-eslint 8.x が TypeScript 7.0 をサポートせず lint が失敗するため、既知の互換性制約に従いマージせずクローズ状態を維持した。`typescript` は 6.0.3 のままとする。
