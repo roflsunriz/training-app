@@ -29,5 +29,6 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 ## 依存更新の注意（2026-09-23）
 
 - `overrides` に固定版がある依存は、Dependabot PR の `devDependencies` 引き上げだけでは実効版が変わらない。`package.json` の両方を揃えて `bun install` で `bun.lock` を再生成し、解決版が変わったことを確認する（例: Electron 44.4.3）。
+- 間接依存のメジャー系列ごとに修正版を適用する必要がある場合は、Bun の version-scoped override（例: `undici@^6.0.0` と `undici@^7.0.0`）を使う。2026-09-30の脆弱性修正ではこの形式で `bun.lock` が lockfileVersion 3 になったため、CI・Release と同じ Bun で frozen install を確認する。
 - TypeScript 7.0 は API を同梱せず typescript-eslint 8.x が `does not support TS 7.0` で lint 失敗する。対応（TS 7.1以降待ち）まで最新6系へ留め、再提案時に移行する。根拠は公式7.0発表の併用案内と typescript-eslint#10940。
 - TS6 の既定 `noUncheckedSideEffectImports: true` により `./index.css` の副作用importが型検査で失敗する。`src/renderer/vite-env.d.ts` の `vite/client` 参照で解決し、検査の無効化はしない。

@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Security
+
+- Dependabot の CI で検出された間接依存の脆弱性を解消するため、`fast-uri` と `undici` の修正版を固定し、Electron と Vite の override も更新先の版に揃えた。
+
 ### Changed
 
 - 依存更新を安全に省力化するため、Dependabot の patch／minor PR を既存 CI の全チェック成功後に自動取り込みし、失敗ジョブを一度再実行し、必要なら `bun.lock` を限定して再生成する設定を追加した。
