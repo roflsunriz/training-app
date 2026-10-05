@@ -53,3 +53,12 @@ Vitest 3から5への変更とbun.lockを同期し、既存3ファイル32テス
 - 既存の固有質問・入力例・必須条件を原文と照合。READMEのリンク・画像・コマンド・条件を確認し、裏付けがある誤記だけを訂正した。
 - 既存のCI、Dependabot、labeler、ライセンスのファイル内容は比較元から変更していない。
 - 製品のビルド・インストール・実機操作、GitHub上のフォーム表示、公開後CIは今回の静的検証に含めない。公開後に実際の受付表示と必要ラベルの適用を確認する。
+
+## 2026-10-05: マージ後の依存監査失敗の修復
+
+- 旧受付整備PRは既にマージ済みで、現在の既定ブランチCIに依存監査の失敗があることをGitHub APIと失敗ログで再確認した。過去の公開前記録を現在の成功根拠には使わない。
+- `brace-expansion`、`fast-uri`、`js-yaml`、`undici` は親依存が要求するmajor系列ごとに修正版を指定する。全系列を新majorへ一律置換しない。
+- `app-builder-lib -> @electron/get 3 -> got 11 -> cacheable-request -> http-cache-semantics` の経路を、公式 `@electron/get 5.1.0` へ限定移行した。Node.js 22.12以降が必要。既存 electron-builder 26.15.3 の `downloadArtifact` 呼び出し互換性は、Windowsインストーラー生成で確認した。
+- npm配布の `http-cache-semantics 4.3.0` は監査上検出されなくても、private/Set-Cookie付きの非保存可能な応答に `max-stale=999999` を指定すると再利用されることをローカルPoCで確認した。安全版と扱わず、上記の依存経路そのものを新ダウンローダーへ移した。現在のロックに got/cacheable-request/http-cache-semantics はない。
+- 固定インストール、全重大度の `bun audit`（0件）、lint、型、既存 32 テスト、main/preload/rendererビルドを確認。配布パッケージと専用userDataでの非表示起動も確認した。公開、実ユーザーへのインストール、自動更新の実適用は行わない。
+- Windowsインストーラーとblockmapを生成し、梱包済みapp.asarで初回案内の描画とmain/preloadの保存読み出し接続を確認。rendererのコンソールエラー0件。
