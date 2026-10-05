@@ -39,3 +39,7 @@ Vitest 5への移行にはNode.js 22.12以降が必要です。Vite 8では対�
 設定を変えたときは `actionlint .github/workflows/dependabot-automation.yml` と実際の PR の Actions 結果を確認します。問題があれば呼び出し先の共通 workflow SHA を直前の検証済み値へ戻すコミットを push します。取り込まれた依存更新に問題があれば通常の revert コミットで復旧します。
 
 CI 完了より Dependabot の分類が遅れる場合は、`callback_workflow_file` が指す呼び出し側 workflow を `workflow_dispatch` し、同じ PR 番号・head SHA・全チェックを再確認する。呼び出し側のファイル名を変える際はこの入力も一緒に更新する。
+
+## 系列別overrideの保守
+
+`package.json` のversion-scoped overrideは親依存のmajor範囲を確認して更新し、同じBunでlockfile生成・固定インストール・全重大度監査・既存品質チェックを実行してください。上流が修正版を取り込んだ際は不要なoverrideを外せるか確認します。問題があれば修復コミットを通常のrevertで戻し、package.jsonとlockfileを同じ版に保ちます。今回の既知制約と配布検証は `verification.md` を参照してください。

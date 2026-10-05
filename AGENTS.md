@@ -32,3 +32,8 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 - 間接依存のメジャー系列ごとに修正版を適用する必要がある場合は、Bun の version-scoped override（例: `undici@^6.0.0` と `undici@^7.0.0`）を使う。2026-09-30の脆弱性修正ではこの形式で `bun.lock` が lockfileVersion 3 になったため、CI・Release と同じ Bun で frozen install を確認する。
 - TypeScript 7.0 は API を同梱せず typescript-eslint 8.x が `does not support TS 7.0` で lint 失敗する。対応（TS 7.1以降待ち）まで最新6系へ留め、再提案時に移行する。根拠は公式7.0発表の併用案内と typescript-eslint#10940。
 - TS6 の既定 `noUncheckedSideEffectImports: true` により `./index.css` の副作用importが型検査で失敗する。`src/renderer/vite-env.d.ts` の `vite/client` 参照で解決し、検査の無効化はしない。
+
+## 系列別の依存修復（2026-10-05）
+
+- 全majorへの一律overrideを避け、親パッケージの要求系列に合う修正版をversion-scoped overrideで選ぶ。lockfileの実効版、固定インストール、全重大度監査と製品チェックを確認する。
+- electron-builder 26.15.3が取り込む旧 @electron/get 3 は got/cacheable-request 経由で未解決の機密キャッシュ問題を持つため、公式5.1.0へ限定移行する。Node.js 22.12以降が必要で、downloadArtifact互換性はWindows梱包でも確認する。http-cache-semantics 4.3.0の監査0件だけでは安全性を判断しない。PoCと実際の経路は `verification.md` を参照。

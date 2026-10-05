@@ -6,6 +6,8 @@
 
 ### Security
 
+- 系列別の間接依存修正版へ更新し、既存 CI の依存監査失敗を解消した。古い Electron ダウンローダー由来の機密キャッシュ問題を除くため、公式 @electron/get 5.1.0 へ限定移行した。
+
 - Dependabot の CI で検出された間接依存の脆弱性を解消するため、`fast-uri` と `undici` の修正版を固定し、Electron と Vite の override も更新先の版に揃えた。
 
 ### Changed
