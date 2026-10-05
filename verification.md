@@ -45,3 +45,11 @@ Vitest 3から5への変更とbun.lockを同期し、既存3ファイル32テス
 - 4件の最初のCI失敗は `fast-uri` 3.1.6 と `undici` 7.29.0／6.28.0 の既知脆弱性による `bun audit` の失敗。version-scoped override で `fast-uri` 3.1.7、`undici` 7.29.1／6.28.1 を指定し、Electron と Vite の override もDependabotの更新版へ揃えた。ローカル `bun audit` は脆弱性 0 件、frozen install は成功。
 - ローカルには Bun 1.4.0 のみがあり、lockfile の再生成とローカル検証はその版で実施した。CI はプロジェクト指定の Bun 1.4.2 で各PRを検証し、成功を確認した。
 - PR #9（TypeScript 7.0.2）は typescript-eslint 8.x が TypeScript 7.0 をサポートせず lint が失敗するため、既知の互換性制約に従いマージせずクローズ状態を維持した。`typescript` は 6.0.3 のままとする。
+
+## 2026-10-05: GitHub受付・READMEの整備（公開前）
+
+- 比較元: `5cbc3ac9d70f3a2b5a2e33d71dee668c3f981252`（`main`）。
+- 受付フォーム 2 件のYAML構造、重複キー・ID、入力型、選択肢、予約ファイル名を一括検査し、エラー0件。
+- 既存の固有質問・入力例・必須条件を原文と照合。READMEのリンク・画像・コマンド・条件を確認し、裏付けがある誤記だけを訂正した。
+- 既存のCI、Dependabot、labeler、ライセンスのファイル内容は比較元から変更していない。
+- 製品のビルド・インストール・実機操作、GitHub上のフォーム表示、公開後CIは今回の静的検証に含めない。公開後に実際の受付表示と必要ラベルの適用を確認する。

@@ -10,6 +10,9 @@
 
 ### Changed
 
+
+- 不具合・機能提案などの受付とPRの記入形式を揃え、プロジェクト固有の確認項目を残した。 READMEは既存の意味と手順を保ち、実装と異なる説明や読みにくい表現を修正した。
+
 - 依存更新を安全に省力化するため、Dependabot の patch／minor PR を既存 CI の全チェック成功後に自動取り込みし、失敗ジョブを一度再実行し、必要なら `bun.lock` を限定して再生成する設定を追加した。
 - Dependabot PR #2・#4・#5・#6 を取り込み、Electron 44.4.3、react-dom系、eslint-plugin-react-refresh 0.5.7、@eslint/js 10.0.1 へ更新した。devDependenciesの引き上げが `overrides` の固定版に打ち消されないよう、Electron のピンも 44.4.3 へ揃えた。
 - Dependabot PR #7・#8・#10・#11 を統合し、Vite 8.3.1、React と @types/react 19.3.0、Zustand 5.0.15、Electron 44.4.5 へ更新した。

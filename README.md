@@ -12,6 +12,29 @@
 - 進行条件を満たすと次の段階への推奨を表示
 - ローカル保存で完全オフライン動作
 
+## 更新配信
+
+GitHub Releases を利用した自動更新に対応しています。
+開発環境では環境変数 `DISABLE_UPDATER=true` で無効化できます。
+
+## データ保存場所
+
+ユーザーデータは Electron の `userData` ディレクトリに保存されます。Windowsでの保存先は次のとおりです。
+
+```
+%APPDATA%/ab-training-app/progress.json
+```
+
+## 注意事項
+
+- このアプリは医療用途ではありません
+- 痛みを感じた場合はすぐに中止してください
+- 腰に不安がある方は医師にご相談ください
+
+## 問い合わせと開発参加
+
+不具合や操作の相談は[サポート](SUPPORT.md)、開発参加は[CONTRIBUTING.md](CONTRIBUTING.md)、脆弱性の扱いは[SECURITY.md](SECURITY.md)を参照してください。
+
 ## 技術スタック
 
 - Electron + electron-vite
@@ -54,28 +77,7 @@ bun run build && bun x --no-install electron-builder --win --publish never
 
 生成物は `dist/` に出力されます。
 
-## 更新配信
-
-GitHub Releases を利用した自動更新に対応しています。
-開発環境では環境変数 `DISABLE_UPDATER=true` で無効化できます。
-
-## データ保存場所
-
-ユーザーデータは Electron の `userData` ディレクトリに保存されます：
-
-```
-%APPDATA%/ab-training-app/progress.json
-```
-
-## 注意事項
-
-- このアプリは医療用途ではありません
-- 痛みを感じた場合はすぐに中止してください
-- 腰に不安がある方は医師にご相談ください
-
 ## ライセンス
-
-不具合や操作の相談は[サポート](SUPPORT.md)、開発参加は[CONTRIBUTING.md](CONTRIBUTING.md)、脆弱性の扱いは[SECURITY.md](SECURITY.md)を参照してください。
 
 [MIT](LICENSE)
 
