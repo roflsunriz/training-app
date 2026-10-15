@@ -1,5 +1,11 @@
 # 検証手順
 
+## 2026-10-15: Open PRの共通監査エラー
+
+- PR #14〜#19のCI失敗ログを確認し、`source-map-js` 1.2.1のサービス拒否の脆弱性（GHSA-68fv-2mgg-jv7q）が共通原因であることを確認した。
+- CI・Releaseと同じBun 1.4.2を使い、`bun update source-map-js` で間接依存だけを1.2.2へ更新した。固定インストールと全重大度の監査（0件）を確認した。
+- PR #14ではZod 4の公式移行ガイドに従って `z.iso.datetime()` と `z.treeifyError()` へ移行した。JSON経由の保存データ保持、不正な暦日・時刻の拒否を加え、lint、型検査、35テスト、ビルドが成功した。
+
 ## v0.1.5の公開前検証（2026-09-13）
 
 - lint、node/webの型検査、32テスト、main・preload・rendererビルド、Bunの既知脆弱性監査0件を再確認。
