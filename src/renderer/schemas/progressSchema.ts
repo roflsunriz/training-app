@@ -6,7 +6,7 @@ const sessionTypeSchema = z.enum(['A', 'B'])
 
 export const sessionLogSchema = z.object({
   id: z.string().min(1),
-  completedAt: z.string().datetime(),
+  completedAt: z.iso.datetime(),
   stageId: stageIdSchema,
   sessionType: sessionTypeSchema,
   completedExerciseIds: z.array(z.string()),
@@ -30,6 +30,6 @@ export function validateProgressState(data: unknown): ValidatedProgressState | n
   if (result.success) {
     return result.data
   }
-  console.error('ProgressState validation failed:', result.error.format())
+  console.error('ProgressState validation failed:', z.treeifyError(result.error))
   return null
 }

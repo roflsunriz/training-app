@@ -75,4 +75,38 @@ describe('validateProgressState', () => {
     }
     expect(validateProgressState(state)).toBeNull()
   })
+
+  it('preserves saved log fields and optional notes after a JSON round trip', () => {
+    const state = {
+      ...validState,
+      currentStage: 'stage3',
+      onboardingCompleted: true,
+      preferredSessionRotation: 'B',
+      displayName: 'テスト利用者',
+      logs: [{
+        id: 'saved-log',
+        completedAt: '2026-10-15T00:00:00.000Z',
+        stageId: 'stage2',
+        sessionType: 'B',
+        completedExerciseIds: ['ex-1', 'ex-2'],
+        painReported: true,
+        notes: '休憩して終了',
+      }],
+    }
+    const saved: unknown = JSON.parse(JSON.stringify(state))
+    expect(validateProgressState(saved)).toEqual(state)
+  })
+
+  it.each(['2026-02-30T00:00:00Z', '2026-10-15T25:00:00Z'])(
+    'rejects an invalid calendar date or time: %s',
+    (completedAt) => {
+      expect(validateProgressState({
+        ...validState,
+        logs: [{
+          id: 'invalid-log', completedAt, stageId: 'stage1', sessionType: 'A',
+          completedExerciseIds: [], painReported: false,
+        }],
+      })).toBeNull()
+    },
+  )
 })
