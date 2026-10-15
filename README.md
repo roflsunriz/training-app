@@ -15,7 +15,7 @@
 ## 更新配信
 
 GitHub Releases を利用した自動更新に対応しています。
-開発環境では環境変数 `DISABLE_UPDATER=true` で無効化できます。
+
 
 ## データ保存場所
 
@@ -35,52 +35,11 @@ GitHub Releases を利用した自動更新に対応しています。
 
 不具合や操作の相談は[サポート](SUPPORT.md)、開発参加は[CONTRIBUTING.md](CONTRIBUTING.md)、脆弱性の扱いは[SECURITY.md](SECURITY.md)を参照してください。
 
-## 技術スタック
-
-- Electron + electron-vite
-- React 19 + TypeScript (strict)
-- Tailwind CSS v4
-- Zustand（状態管理）
-- Zod（ランタイム検証）
-- Vitest（単体テスト）
-
-## セットアップ
-
-開発にはNode.js 22.13以降と、CI定義に記載したBunを使用します。依存更新は[更新手順](how-to-update.md)、検証範囲は[検証手順](verification.md)を参照してください。
-
-```bash
-# 依存インストール
-bun install --frozen-lockfile
-
-# 開発起動
-bun run dev
-
-# lint
-bun run lint
-
-# 型チェック
-bun run type-check
-
-# テスト
-bun run test
-
-# ビルド（Electron アプリ出力）
-bun run build
-```
-
-## ビルド・配布
-
-```bash
-# Windows インストーラー作成
-bun run build && bun x --no-install electron-builder --win --publish never
-```
-
-生成物は `dist/` に出力されます。
-
 ## ライセンス
 
 [MIT](LICENSE)
 
-## 依存更新の自動処理
 
-Dependabot は対象の依存関係を毎週確認します。patch／minor 更新は PR のチェック（CI）が成功した後に自動で squash merge されます。CI の失敗ジョブは 1 回だけ再実行します。再失敗時は読み取り権限のジョブで `bun.lock` を再生成し、限定した修正コミットで CI を再実行します。修復できない PR は残します。major 更新は手動で確認します。
+## 開発・運用の知見
+
+開発環境、内部構成、検証コマンドと運用上の注意は [findings.md](findings.md) を参照してください。更新・復旧の手順と検証記録は、同ファイルから案内しています。

@@ -14,6 +14,8 @@
 
 ### Changed
 
+
+- 共通指針と固有の知見を区別して参照できるよう、AGENTS・READMEなどの実現手段、例外と調査知見を `findings.md` へ分離し、着手前の全文確認と更新先を統一した。
 - 保存データの検証をZod 4へ移行し、日時検証とエラー整形を現行APIへ更新した。
 - Open PR #14〜#19の依存更新を統合し、ESLint 10、React Hooks 7、Node型定義26、setup-node 7.1へ移行した。Viteの実効版を8.3.4へ揃え、Electron 44.7.2、React 19.3.1、React Router 8.4、electron-vite 6など互換性のある依存更新も適用した。
 - 更新後の検証環境を揃えるため、ESLint 10の要件に合わせてNode.jsの最低版を22.13へ変更した。Vitest設定を明示的なESモジュールへ移し、electron-viteの非推奨プラグイン呼び出しを現行設定へ置き換えた。

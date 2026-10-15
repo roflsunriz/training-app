@@ -1,5 +1,8 @@
 # 更新手順
 
+作業前に [findings.md](findings.md) を全文読み、固有の環境・ツール・例外条件を確認する。以下は更新と復旧の手順の正本とする。
+
+
 ## 開発・依存更新
 
 Node.jsは `package.json` のengines、BunはCI・Release定義のバージョンを使用します。ユーザーデータの `progress.json` をバックアップし、作業ツリーの既存変更を確認してから更新します。
