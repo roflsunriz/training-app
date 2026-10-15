@@ -16,7 +16,7 @@ bun run build
 
 Dependabotを含め依存を変更するときは、先に `bun install` で `bun.lock` を再生成し、package.jsonとロックの両方をレビューします。CIの `--frozen-lockfile` を外して不整合を回避しないでください。更新対象のリリースノートとNode/Viteの互換要件も確認します。
 
-Vitest 5への移行にはNode.js 22.12以降が必要です。Vite 8では対応するReactプラグイン6を使用します。監査上のoverridesを変更する場合は、間接依存を含む監査0件と全検証を確認します。
+現在の開発環境はESLint 10の要件に合わせてNode.js 22.13以降を使用します。Vite 8では対応するReactプラグイン6を使用します。監査上のoverridesを変更する場合は、間接依存を含む監査0件と全検証を確認します。
 
 ## リリース
 

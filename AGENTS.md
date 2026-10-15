@@ -37,3 +37,9 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 
 - 全majorへの一律overrideを避け、親パッケージの要求系列に合う修正版をversion-scoped overrideで選ぶ。lockfileの実効版、固定インストール、全重大度監査と製品チェックを確認する。
 - electron-builder 26.15.3が取り込む旧 @electron/get 3 は got/cacheable-request 経由で未解決の機密キャッシュ問題を持つため、公式5.1.0へ限定移行する。Node.js 22.12以降が必要で、downloadArtifact互換性はWindows梱包でも確認する。http-cache-semantics 4.3.0の監査0件だけでは安全性を判断しない。PoCと実際の経路は `verification.md` を参照。
+
+## 依存更新の互換条件（2026-10-15）
+
+- ESLint 10はNode.js 22系では22.13以降を要求する。最低要件は `package.json` のenginesへ合わせる。typescript-eslint 8.71.2の公式peer範囲はTypeScript `<6.1.0` で、TypeScript 7への移行は引き続き不可。
+- electron-vite 6では `externalizeDepsPlugin()` が非推奨のため、main/preloadの `build.externalizeDeps` を使う。Vitest設定は `vitest.config.mts` とし、ESM設定をCommonJSとして扱う警告を抑制せず解消する。
+- 手動修正をpushしたPR #14がCI成功直後に既存自動化でマージされた。修正pushの直前にはPRのOpen状態とリモートブランチの存在を再確認し、既に削除されたブランチを再作成しない。複数PRの履歴をまとめて取り込む場合は最終CIまで統合先をDraftにし、merge commitで履歴を保持する。

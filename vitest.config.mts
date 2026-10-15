@@ -4,8 +4,8 @@ import { resolve } from 'path'
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src/renderer'),
-      '@types': resolve(__dirname, 'src/types'),
+      '@': resolve(import.meta.dirname, 'src/renderer'),
+      '@types': resolve(import.meta.dirname, 'src/types'),
     },
   },
   test: {
