@@ -42,3 +42,4 @@ Get-Content -Raw -LiteralPath .\COMMON-AGENTS.md
 
 - ESLint 10はNode.js 22系では22.13以降を要求する。最低要件は `package.json` のenginesへ合わせる。typescript-eslint 8.71.2の公式peer範囲はTypeScript `<6.1.0` で、TypeScript 7への移行は引き続き不可。
 - electron-vite 6では `externalizeDepsPlugin()` が非推奨のため、main/preloadの `build.externalizeDeps` を使う。Vitest設定は `vitest.config.mts` とし、ESM設定をCommonJSとして扱う警告を抑制せず解消する。
+- 手動修正をpushしたPR #14がCI成功直後に既存自動化でマージされた。修正pushの直前にはPRのOpen状態とリモートブランチの存在を再確認し、既に削除されたブランチを再作成しない。複数PRの履歴をまとめて取り込む場合は最終CIまで統合先をDraftにし、merge commitで履歴を保持する。

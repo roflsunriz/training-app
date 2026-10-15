@@ -5,7 +5,7 @@
 - PR #14〜#19のCI失敗ログを確認し、`source-map-js` 1.2.1のサービス拒否の脆弱性（GHSA-68fv-2mgg-jv7q）が共通原因であることを確認した。
 - CI・Releaseと同じBun 1.4.2を使い、`bun update source-map-js` で間接依存だけを1.2.2へ更新した。固定インストールと全重大度の監査（0件）を確認した。
 - PR #14ではZod 4の公式移行ガイドに従って `z.iso.datetime()` と `z.treeifyError()` へ移行した。JSON経由の保存データ保持、不正な暦日・時刻の拒否を加え、lint、型検査、35テスト、ビルドが成功した。
-- #15〜#19のコミットも既存PR #14へ統合し、ロック競合はpackage.jsonの更新値を保持してBun 1.4.2で再生成した。Viteのoverrideを8.3.4へ合わせ、`bun outdated` で確認した互換性のある直接依存も更新した。TypeScript 7はtypescript-eslint 8.71.2のpeer範囲（`>=4.8.4 <6.1.0`）外のため6.0.3を維持する。
+- PR #14はCI（run 38673966965）成功後に既存自動化がmainへ取り込んだ。残る#15〜#19の履歴は既存PR #19へ集約し、統合状態を検証する。ロック競合はpackage.jsonの更新値を保持してBun 1.4.2で再生成した。Viteのoverrideを8.3.4へ合わせ、`bun outdated` で確認した互換性のある直接依存も更新した。TypeScript 7はtypescript-eslint 8.71.2のpeer範囲（`>=4.8.4 <6.1.0`）外のため6.0.3を維持する。
 - 統合後の固定インストール、全重大度監査0件、lint、node/web型検査、35テスト、main/preload/rendererビルドが成功した。フォーマットスクリプトは未定義のためESLintと `git diff --check` で検査した。Vitest設定を `.mts` へ移し、electron-vite 6の `build.externalizeDeps` を使って非推奨APIを解消した。
 - `bun x --no-install electron-builder --win --publish never` でElectron 44.7.2のWindows x64インストーラーとblockmapを生成した。`latest.yml` の版0.1.5、113512944バイト、SHA-512がインストーラーと一致した。
 - 梱包済み `app.asar` を隔離userData・`DISABLE_UPDATER=true`・非表示ウィンドウで起動した。初回案内、設定入力と保存、安全表示切り替え、未完了確認のキャンセル、種目詳細の開閉、セッション完了、メモ・痛みの保存、A/B切り替え、進捗画面、段階変更、再読み込み後の保存保持、main/preload/rendererの接続を確認した。900×670と480×600のDOM実測とスクリーンショットで横あふれがなく、コンソールエラー0件。
