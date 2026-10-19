@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- 同じ参照の古いCIを取り消し、Bun依存キャッシュを再利用してWindows検証の待ち時間を短縮した。
+
 ### Security
 
 - Dependabot PRのCIを停止させていたサービス拒否の脆弱性を解消するため、間接依存の `source-map-js` を1.2.2へ更新した。
