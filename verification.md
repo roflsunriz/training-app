@@ -1,5 +1,12 @@
 # 検証手順
 
+## 2026-10-31: Dependabot PR #24
+
+- electron-builder 26.18.0のPRで app-builder-lib の固定版も26.18.0へ揃え、Electron 44.9.1、fast-uri 3.1.9、undici 6.29.1/7.30.1、minimatch 11.0.3へ更新した。electron-builder-squirrel-windowsの解決版も26.18.0に揃えた。
+- CIと同じBun 1.4.2で固定インストール、全重大度監査407パッケージ0件、lint、node/web型検査、35テスト、ビルドを確認した。
+- Windows x64インストーラーを `--publish never` で生成し、`latest.yml` の版・サイズ・SHA-512と実ファイルを照合した。公開、実ユーザーへのインストール、自動更新の適用は行っていない。
+- 梱包済み `app.asar` をElectron 44.9.1で隔離userData・更新無効・非表示で起動し、初回画面からの開始、保存、再読込後の復元、main/preload/renderer接続を確認した。rendererのエラーは0件だった。
+
 ## 2026-10-19: CI高速化
 
 - 変更したGitHub Actionsをactionlint 1.7.12で検査し、エラー0件を確認した。

@@ -7,3 +7,4 @@
 - TypeScript 7はAPI不足とtypescript-eslint非対応のため、対応確認まで6系に留める。TS6のCSS副作用importは `vite/client` 型参照で解決し、検査を無効化しない。
 - Electron-builder配下の旧 `@electron/get` は監査0件だけで安全と判断せず、公式5系への限定移行後にWindows梱包とartifact download互換を確認する。
 - 修正push前にPRがOpenか、remote branchが残るかを再確認する。自動マージ後の削除済みbranchを再作成しない。
+- electron-builderの更新時は `app-builder-lib` のoverrideと `electron-builder-squirrel-windows` の解決版を要求版に揃え、配布ログの実効版を確認する。minimatchのglobparts脆弱性は11.0.1未満が対象のため、11系への更新時はlintとWindows梱包の互換性も確認する。
