@@ -49,3 +49,5 @@ CI 完了より Dependabot の分類が遅れる場合は、`callback_workflow_f
 ## 系列別overrideの保守
 
 `package.json` のversion-scoped overrideは親依存のmajor範囲を確認して更新し、同じBunでlockfile生成・固定インストール・全重大度監査・既存品質チェックを実行してください。上流が修正版を取り込んだ際は不要なoverrideを外せるか確認します。問題があれば修復コミットを通常のrevertで戻し、package.jsonとlockfileを同じ版に保ちます。今回の既知制約と配布検証は `verification.md` を参照してください。
+
+electron-builderを更新するときは `app-builder-lib` のoverrideと `electron-builder-squirrel-windows` の解決版を要求版に揃え、Windowsインストーラーを生成して実効版を確認します。minimatch 11への更新では依存元のAPI互換性をlintと配布ビルドで確認します。

@@ -12,6 +12,7 @@
 
 ### Security
 
+- Electron 44の証明書対応と間接依存の脆弱性修正を取り込むため、Electron、fast-uri、undici、minimatchを安全版へ更新した。
 - Dependabot PRのCIを停止させていたサービス拒否の脆弱性を解消するため、間接依存の `source-map-js` を1.2.2へ更新した。
 
 - 系列別の間接依存修正版へ更新し、既存 CI の依存監査失敗を解消した。古い Electron ダウンローダー由来の機密キャッシュ問題を除くため、公式 @electron/get 5.1.0 へ限定移行した。
@@ -34,6 +35,7 @@
 - TypeScript を 5.9.3 から 6.0.3 へ更新した。Dependabot 提案の 7.0.2 は typescript-eslint 8.x が未対応で lint が失敗するため見送り、対応版が出たら再提案時に移行する。TS6 の既定で検査対象になった CSS の副作用importを解決するため、`vite/client` 型参照を追加した。
 ### Fixed
 
+- 配布時に更新後のelectron-builderが使われるよう、app-builder-libと関連パッケージの解決版を揃えた。
 - CI と Dependabot の分類の実行順が前後しても更新を取りこぼさないよう、同じ PR 番号と head SHA を再照合する経路を追加した。
 - Bun用の依存固定をnpmが拒否して配布に失敗する問題を防ぐため、インストーラー生成をBun経由へ統一。既存タグを保持して公開処理を復旧できる手動実行を追加した。
 - 次回の公開でも廃止予定の実行環境へ依存しないよう、公開アクションをNode.js 24対応のv3.0.3へ更新した。
