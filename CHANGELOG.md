@@ -10,6 +10,8 @@
 
 - 同じ参照の古いCIを取り消し、Bun依存キャッシュを再利用してWindows検証の待ち時間を短縮した。
 
+- TypeScriptの静的解析を更新するため、typescript-eslintを8.72.1へ更新した。
+
 ### Security
 
 - Electron 44の証明書対応と間接依存の脆弱性修正を取り込むため、Electron、fast-uri、undici、minimatchを安全版へ更新した。
