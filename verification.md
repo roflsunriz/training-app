@@ -1,5 +1,9 @@
 # 検証手順
 
+## 2026-10-31: Dependabot PR #22・#26
+
+- Viteの直接依存だけでは8.3.4のoverrideが優先されるため、overrideとロックファイルも8.3.5へ揃えた。typescript-eslintは8.72.1へ更新し、Bun 1.4.2で固定インストール、監査407パッケージ0件、lint、node/web型検査、35テスト、ビルド成功を確認した。
+
 ## 2026-10-31: Dependabot PR #24
 
 - electron-builder 26.18.0のPRで app-builder-lib の固定版も26.18.0へ揃え、Electron 44.9.1、fast-uri 3.1.9、undici 6.29.1/7.30.1、minimatch 11.0.3へ更新した。electron-builder-squirrel-windowsの解決版も26.18.0に揃えた。
